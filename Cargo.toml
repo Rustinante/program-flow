@@ -1,0 +1,11 @@
+[package]
+name = "program-flow"
+version = "0.1.0"
+authors = ["Aaron"]
+edition = "2018"
+license = "Apache-2.0"
+description = "A module to control executable programs' flow"
+repository = "https://github.com/Rustinante/program-flow.git"
+
+[dependencies]
+clap = "^2.32.0"
