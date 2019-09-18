@@ -66,3 +66,10 @@ pub fn extract_str_vec_arg(
         Some(v) => Ok(v)
     }
 }
+
+pub fn extract_boolean_flag(
+    matches: &ArgMatches,
+    arg_name: &str,
+) -> bool {
+    matches.is_present(arg_name)
+}
