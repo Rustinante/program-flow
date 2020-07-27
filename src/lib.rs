@@ -12,11 +12,11 @@ impl<T, E: fmt::Display> OrExit<T> for Result<T, E> {
             Err(why) => {
                 match with_msg_prefix {
                     None => eprintln!("{}", why),
-                    Some(msg) => eprintln!("{}: {}", msg, why)
+                    Some(msg) => eprintln!("{}: {}", msg, why),
                 };
                 std::process::exit(1);
             }
-            Ok(value) => value
+            Ok(value) => value,
         }
     }
 }
@@ -27,11 +27,11 @@ impl<T> OrExit<T> for Option<T> {
             None => {
                 match with_msg_prefix {
                     None => eprintln!("expected the Option to have some value"),
-                    Some(msg) => eprintln!("{}", msg)
+                    Some(msg) => eprintln!("{}", msg),
                 };
                 std::process::exit(1);
             }
-            Some(value) => value
+            Some(value) => value,
         }
     }
 }

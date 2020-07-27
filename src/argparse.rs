@@ -16,60 +16,54 @@ pub fn extract_optional_numeric_arg<T: FromStr>(
     matches: &ArgMatches,
     arg_name: &str,
 ) -> Result<Option<T>, String>
-    where <T as std::str::FromStr>::Err: std::fmt::Display {
+where
+    <T as std::str::FromStr>::Err: std::fmt::Display, {
     match matches.value_of(arg_name) {
         None => Ok(None),
         Some(s) => match s.parse::<T>() {
             Ok(val) => Ok(Some(val)),
-            Err(why) => Err(format!("failed to parse {}: {}", arg_name, why))
-        }
+            Err(why) => Err(format!("failed to parse {}: {}", arg_name, why)),
+        },
     }
 }
 
-pub fn extract_numeric_arg<T: FromStr>(
-    matches: &ArgMatches,
-    arg_name: &str,
-) -> Result<T, String>
-    where <T as std::str::FromStr>::Err: std::fmt::Display {
+pub fn extract_numeric_arg<T: FromStr>(matches: &ArgMatches, arg_name: &str) -> Result<T, String>
+where
+    <T as std::str::FromStr>::Err: std::fmt::Display, {
     match extract_optional_numeric_arg(matches, arg_name)? {
         None => Err(format!("{} is not provided", arg_name)),
-        Some(val) => Ok(val)
+        Some(val) => Ok(val),
     }
 }
 
-pub fn extract_optional_str_arg(
-    matches: &ArgMatches,
-    arg_name: &str,
-) -> Option<String> {
+pub fn extract_optional_str_arg(matches: &ArgMatches, arg_name: &str) -> Option<String> {
     match matches.value_of(arg_name) {
         None => None,
-        Some(v) => Some(v.to_string())
+        Some(v) => Some(v.to_string()),
     }
 }
 
-pub fn extract_optional_str_vec_arg(
-    matches: &ArgMatches,
-    arg_name: &str,
-) -> Option<Vec<String>> {
+pub fn extract_optional_str_vec_arg(matches: &ArgMatches, arg_name: &str) -> Option<Vec<String>> {
     match matches.values_of(arg_name) {
         None => None,
-        Some(v) => Some(v.map(|s| s.to_string()).collect())
+        Some(v) => Some(v.map(|s| s.to_string()).collect()),
     }
 }
 
-pub fn extract_str_vec_arg(
-    matches: &ArgMatches,
-    arg_name: &str,
-) -> Result<Vec<String>, String> {
+pub fn extract_str_vec_arg(matches: &ArgMatches, arg_name: &str) -> Result<Vec<String>, String> {
     match extract_optional_str_vec_arg(matches, arg_name) {
         None => Err(format!("{} is not provided", arg_name)),
-        Some(v) => Ok(v)
+        Some(v) => Ok(v),
     }
 }
 
-pub fn extract_boolean_flag(
-    matches: &ArgMatches,
-    arg_name: &str,
-) -> bool {
+pub fn extract_boolean_flag(matches: &ArgMatches, arg_name: &str) -> bool {
     matches.is_present(arg_name)
+}
+
+#[macro_export]
+macro_rules! print_vars {
+    ($($id:ident), +) => {
+        $(println!("{}", format_args!("{} {}", stringify!($id), $id));)+
+    };
 }
