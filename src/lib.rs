@@ -35,3 +35,39 @@ impl<T> OrExit<T> for Option<T> {
         }
     }
 }
+
+#[macro_export]
+macro_rules! print_named_vars {
+    ($($id:ident), +) => {
+        $(
+            println!("{}", format_args!("{} {}", stringify!($id), $id));
+        )+
+    };
+}
+
+#[macro_export]
+macro_rules! debug_print_named_vars {
+    ($($id:ident), +) => {
+        $(
+            println!("{}", format_args!("{} {:?}", stringify!($id), $id));
+        )+
+    };
+}
+
+#[macro_export]
+macro_rules! eprint_named_vars {
+    ($($id:ident), +) => {
+        $(
+            eprintln!("{}", format_args!("{} {}", stringify!($id), $id));
+        )+
+    };
+}
+
+#[macro_export]
+macro_rules! debug_eprint_named_vars {
+    ($($id:ident), +) => {
+        $(
+            eprintln!("{}", format_args!("{} {:?}", stringify!($id), $id));
+        )+
+    };
+}

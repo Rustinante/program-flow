@@ -60,10 +60,3 @@ pub fn extract_str_vec_arg(matches: &ArgMatches, arg_name: &str) -> Result<Vec<S
 pub fn extract_boolean_flag(matches: &ArgMatches, arg_name: &str) -> bool {
     matches.is_present(arg_name)
 }
-
-#[macro_export]
-macro_rules! print_vars {
-    ($($id:ident), +) => {
-        $(println!("{}", format_args!("{} {}", stringify!($id), $id));)+
-    };
-}
